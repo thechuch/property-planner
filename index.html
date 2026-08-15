@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Property Planner</title>
+<style>
+  :root{
+    --paper:#faf6ef; --card:#fffdf8; --ink:#33291f; --soft:#7d6f5d; --line:#e8ddcc;
+    --terra:#a85a38; --terra-soft:#f6e8dc; --walnut:#6b4f36; --cream:#fdf3e3;
+    --good:#3d6b4f; --good-soft:#e9f1ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--paper);color:var(--ink);
+    font:18px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:840px;margin:0 auto;padding:28px 18px 80px;}
+  .eyebrow{color:var(--terra);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;}
+  h1{font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:1.2;margin:6px 0 10px;font-weight:700;}
+  .lede{color:var(--soft);font-size:18px;max-width:640px;}
+  h2{font-family:Georgia,serif;font-size:22px;margin:0 0 14px;color:var(--walnut);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 22px 24px;margin-top:22px;}
+  /* inputs */
+  .field{margin-bottom:20px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block;font-weight:700;font-size:18px;margin-bottom:6px;}
+  .field .note{font-size:15px;color:var(--soft);margin-top:6px;line-height:1.5;}
+  .field input[type=number]{width:100%;max-width:320px;padding:14px 16px;border:2px solid var(--line);
+    border-radius:12px;font-size:22px;font-variant-numeric:tabular-nums;background:#fff;color:var(--ink);}
+  .field input[type=number]:focus{outline:none;border-color:var(--terra);}
+  .sl{display:flex;align-items:center;gap:16px;}
+  .sl input[type=range]{flex:1 1 auto;-webkit-appearance:none;appearance:none;height:10px;border-radius:8px;
+    background:var(--terra-soft);outline:none;}
+  .sl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;
+    border-radius:50%;background:var(--terra);cursor:pointer;border:4px solid #fff;box-shadow:0 2px 6px rgba(60,30,10,.3);}
+  .sl input[type=range]::-moz-range-thumb{width:32px;height:32px;border-radius:50%;background:var(--terra);cursor:pointer;border:4px solid #fff;}
+  .sl .val{flex:0 0 auto;min-width:96px;text-align:right;font-size:22px;font-weight:700;color:var(--terra);font-variant-numeric:tabular-nums;}
+  /* mode buttons */
+  .modes{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;}
+  .modes button{flex:1 1 180px;border:2px solid var(--line);background:#fff;border-radius:14px;padding:16px 14px;
+    font-size:18px;font-weight:700;color:var(--walnut);cursor:pointer;font-family:inherit;line-height:1.3;}
+  .modes button.on{background:var(--terra);border-color:var(--terra);color:#fff;}
+  /* results */
+  .ledger{background:var(--cream);border-radius:14px;padding:18px 20px;margin-top:16px;}
+  .ledger h3{font-family:Georgia,serif;font-size:19px;color:var(--walnut);margin-bottom:10px;}
+  .row{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:18px;}
+  .row:last-child{border-bottom:none;}
+  .row .r{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .row.total{border-top:2px solid var(--terra);border-bottom:none;padding-top:12px;margin-top:4px;}
+  .row.total .l{font-weight:800;color:var(--terra);}
+  .row.total .r{font-weight:800;color:var(--terra);font-size:20px;}
+  .explain{background:var(--terra-soft);border-left:4px solid var(--terra);border-radius:0 12px 12px 0;
+    padding:14px 18px;font-size:17px;line-height:1.6;margin-top:16px;}
+  .factbox{background:var(--good-soft);border-left:4px solid var(--good);border-radius:0 12px 12px 0;
+    padding:14px 18px;font-size:16px;line-height:1.6;margin-top:16px;color:#2c4436;}
+  .empty{background:var(--terra-soft);border-radius:14px;padding:26px 22px;text-align:center;
+    font-size:19px;color:var(--walnut);margin-top:16px;line-height:1.6;}
+  /* compare */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  @media(max-width:640px){.cols{grid-template-columns:1fr;}}
+  .col{background:var(--cream);border-radius:14px;padding:18px 20px;}
+  .col h3{font-family:Georgia,serif;font-size:20px;color:var(--walnut);margin-bottom:12px;text-align:center;}
+  ul.q{list-style:none;margin-top:6px;}
+  ul.q li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:17px;line-height:1.55;}
+  ul.q li:last-child{border-bottom:none;}
+  ul.q li:before{content:"?";position:absolute;left:4px;top:9px;width:22px;height:22px;border-radius:50%;
+    background:var(--terra-soft);color:var(--terra);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;}
+  .foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--soft);font-size:15px;line-height:1.6;}
+  .hide{display:none !important;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">For the two of you</div>
+  <h1>Thinking it through, together</h1>
+  <p class="lede">A little calculator the kids put together so everyone can look at the same numbers. Nothing here is saved or sent anywhere. Change anything you like, it is only arithmetic.</p>
+
+  <div class="card">
+    <h2>The basics</h2>
+
+    <div class="field">
+      <label for="val">What the whole place is worth</label>
+      <input type="number" id="val" placeholder="the appraisal will tell us" step="5000" min="0">
+      <div class="note">This planner takes no position on value. When the independent appraisal comes back, put that number here. You can also try any number you want to see how it plays out.</div>
+    </div>
+
+    <div class="field">
+      <label for="mort">What is still owed on the loan</label>
+      <input type="number" id="mort" value="150000" step="1000" min="0">
+      <div class="note">Roughly. The bank's exact payoff statement will replace this.</div>
+    </div>
+
+    <div class="field">
+      <label for="credit">The kids' credit from the 2024 agreement</label>
+      <input type="number" id="credit" value="30666" step="100" min="0">
+      <div class="note">The mortgage payments they have been making, which the signed agreement counts toward their purchase.</div>
+    </div>
+
+    <div class="field">
+      <label for="tax">Property taxes each year</label>
+      <input type="number" id="tax" value="5865" step="100" min="0">
+    </div>
+
+    <div class="field">
+      <label for="ins">Insurance and irrigation water each year</label>
+      <input type="number" id="ins" placeholder="enter your yearly total" step="100" min="0">
+      <div class="note">You two know these better than anyone. Homeowner's insurance plus the TID assessment, per year.</div>
+    </div>
+
+    <div class="field">
+      <label>Interest rate on the payments to you</label>
+      <div class="sl"><input type="range" id="rate" min="3" max="8" step="0.25" value="5.5"><span class="val" id="rateV"></span></div>
+      <div class="note">For family loans the IRS publishes a minimum, lately around 4 percent. Banks charge strangers about 6.5 to 7. Families usually pick something in between. A CPA can confirm the exact minimum for the month you sign.</div>
+    </div>
+
+    <div class="field">
+      <label>How many years the payments run</label>
+      <div class="sl"><input type="range" id="term" min="10" max="30" step="5" value="30"><span class="val" id="termV"></span></div>
+      <div class="note">Fewer years means bigger monthly checks to you. More years means smaller, longer-lasting ones.</div>
+    </div>
+  </div>
+
+  <div class="modes" id="modes">
+    <button data-m="half" class="on">Sell half<br>to the kids</button>
+    <button data-m="full">Sell the<br>whole place</button>
+    <button data-m="cmp">Compare<br>side by side</button>
+  </div>
+
+  <!-- HALF -->
+  <section id="sec-half">
+    <div class="card">
+      <h2>If you sell half to the kids</h2>
+      <div class="explain">Part of the kids' purchase money pays off the remaining bank loan, so you end up debt free. The rest of their half price comes to you as monthly payments, with interest. You are the bank. You both keep living exactly where you live, and because you are co-owners, nobody pays anybody rent. The running costs get shared down the middle.</div>
+      <div id="half-out"></div>
+      <div class="factbox">Your half stays fully yours: to live in for as long as you want, and to leave to whomever you choose. This purchase does not touch your estate decisions about your own half.</div>
+    </div>
+  </section>
+
+  <!-- FULL -->
+  <section id="sec-full" class="hide">
+    <div class="card">
+      <h2>If you sell the whole place</h2>
+      <div class="explain">The whole property becomes the kids'. The bank loan is paid off, you take whatever cash you choose at closing, and the rest of the price comes to you as monthly payments. You stay in your home, and you pay the kids a normal monthly rent, the way any tenant would, which is what makes it proper for taxes.</div>
+
+      <div class="field" style="margin-top:18px;">
+        <label>Cash in your pocket at closing</label>
+        <div class="sl"><input type="range" id="pocket" min="0" max="300000" step="5000" value="0"><span class="val" id="pocketV"></span></div>
+        <div class="note">On top of the loan being paid off. More cash now means smaller monthly payments later, since it comes out of the same price.</div>
+      </div>
+
+      <div class="field">
+        <label for="rent">Monthly rent you would pay the kids</label>
+        <input type="number" id="rent" placeholder="what similar homes rent for" step="50" min="0">
+        <div class="note">Worth checking what houses like yours rent for nearby, so the number is fair in both directions.</div>
+      </div>
+
+      <div id="full-out"></div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section id="sec-cmp" class="hide">
+    <div class="card">
+      <h2>Side by side</h2>
+      <p style="color:var(--soft);font-size:16px;">Using everything entered above, including the cash and rent choices from the whole-place option.</p>
+      <div id="cmp-out"></div>
+    </div>
+  </section>
+
+  <div class="card">
+    <h2>Good questions to ask</h2>
+    <p style="color:var(--soft);font-size:16px;margin-bottom:6px;">For an attorney, a CPA, or an AI assistant, in any order.</p>
+    <ul class="q">
+      <li>What is a fair interest rate for a family loan right now, and what is the IRS minimum this month?</li>
+      <li>What happens to a co-owned property when one owner passes away?</li>
+      <li>What should a written co-ownership agreement cover so nobody ever has to guess?</li>
+      <li>How would selling half, versus all, of our home affect our taxes specifically?</li>
+      <li>What should we ask a real estate attorney before signing anything?</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    These are estimates for family conversation, not financial, tax, or legal advice. The real numbers come from the independent appraisal, the bank's payoff statement, a CPA, and a real estate attorney. Nothing you type here is saved or sent anywhere; it lives only on this screen.
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const money = n => { const r = Math.round(n); return (r<0?'-$':'$') + Math.abs(r).toLocaleString(); };
+function amort(annualPct, years){
+  const i = (annualPct/100)/12, n = years*12;
+  if(n<=0) return 0;
+  if(i===0) return 1/n;
+  return i / (1 - Math.pow(1+i, -n));
+}
+const KIDS_BANK_RATE = 6.75; // what a bank would roughly charge the kids today
+
+let MODE='half';
+
+function num(id){ const v = parseFloat($(id).value); return isNaN(v)?null:v; }
+
+function calc(){
+  const V = num('val');
+  const mort = num('mort')||0;
+  const credit = num('credit')||0;
+  const tax = num('tax')||0;
+  const insRaw = num('ins');
+  const ins = insRaw||0;
+  const rate = num('rate')||5.5;
+  const term = num('term')||30;
+  const pocket = num('pocket')||0;
+  const rentRaw = num('rent');
+  const rent = rentRaw||0;
+
+  $('rateV').textContent = rate + '%';
+  $('termV').textContent = term + ' yrs';
+  $('pocketV').textContent = money(pocket);
+
+  const insHint = insRaw===null ? '<div class="explain" style="margin-top:12px;">Add your yearly insurance and TID above for the complete picture. The numbers below leave them out for now.</div>' : '';
+  const carryMo = (tax+ins)/12;
+
+  if(V===null || V<=0){
+    const msg = '<div class="empty">Enter a value for the place in "The basics" above, and the numbers will appear here. When the appraisal arrives, use that.</div>';
+    $('half-out').innerHTML = msg;
+    $('full-out').innerHTML = msg;
+    $('cmp-out').innerHTML = msg;
+    return;
+  }
+
+  // HALF: payoff comes out of the kids' half price
+  const half = V/2;
+  const noteH = Math.max(0, half - mort - credit);
+  const noteHPmt = noteH * amort(rate, term);
+  const yourShare = carryMo/2;
+  const yourH = noteHPmt - yourShare;
+  const kidsBankH = mort * amort(KIDS_BANK_RATE, term);
+  const kidsH = noteHPmt + kidsBankH + carryMo/2;
+
+  $('half-out').innerHTML = insHint
+    + '<div class="ledger"><h3>What you receive</h3>'
+    + '<div class="row"><span class="l">At closing: the '+money(mort)+' loan is paid off</span><span class="r">debt free</span></div>'
+    + '<div class="row"><span class="l">Monthly payments to you ('+rate+'% for '+term+' years)</span><span class="r">+'+money(noteHPmt)+'</span></div>'
+    + '<div class="row"><span class="l">Your half of taxes, insurance, and water</span><span class="r">&minus;'+money(yourShare)+'</span></div>'
+    + '<div class="row total"><span class="l">Into your pocket each month</span><span class="r">'+money(yourH)+'</span></div>'
+    + '</div>'
+    + '<div class="ledger"><h3>The kids’ side, for fairness</h3>'
+    + '<div class="row"><span class="l">Their loan to pay off the bank</span><span class="r">'+money(kidsBankH)+'/mo</span></div>'
+    + '<div class="row"><span class="l">Their payments to you</span><span class="r">'+money(noteHPmt)+'/mo</span></div>'
+    + '<div class="row"><span class="l">Their half of the running costs</span><span class="r">'+money(carryMo/2)+'/mo</span></div>'
+    + '<div class="row total"><span class="l">Their monthly, all in</span><span class="r">'+money(kidsH)+'</span></div>'
+    + '</div>'
+    + '<div class="explain">How the half price works: half the value is '+money(half)+'. Of that, '+money(mort)+' goes to the bank to clear the loan, '+money(credit)+' is already covered by the 2024 agreement, and the remaining '+money(noteH)+' becomes the monthly payments to you.</div>';
+
+  // FULL: waterfall V = mort + pocket + credit + note
+  const noteF = Math.max(0, V - mort - pocket - credit);
+  const noteFPmt = noteF * amort(rate, term);
+  const yourF = noteFPmt - rent;
+  const kidsBankF = (mort + pocket) * amort(KIDS_BANK_RATE, term);
+  const kidsF = kidsBankF + noteFPmt + carryMo - rent;
+
+  const rentHint = (MODE!=='half' && rentRaw===null) ? '<div class="explain" style="margin-top:12px;">Add a monthly rent above to complete this picture. The numbers below treat it as zero for now.</div>' : '';
+  const negNote = yourF<0 ? '<div class="explain">Right now the rent going out is larger than the payments coming in, so the monthly runs negative and would draw on the closing cash. Taking less cash at closing makes the monthly payments bigger.</div>' : '';
+
+  $('full-out').innerHTML = insHint + rentHint
+    + '<div class="ledger"><h3>What you receive</h3>'
+    + '<div class="row"><span class="l">At closing: the '+money(mort)+' loan is paid off</span><span class="r">debt free</span></div>'
+    + '<div class="row"><span class="l">Cash in your pocket at closing</span><span class="r">'+money(pocket)+'</span></div>'
+    + '<div class="row"><span class="l">Monthly payments to you ('+rate+'% for '+term+' years)</span><span class="r">+'+money(noteFPmt)+'</span></div>'
+    + '<div class="row"><span class="l">Rent you pay the kids</span><span class="r">&minus;'+money(rent)+'</span></div>'
+    + '<div class="row total"><span class="l">Into your pocket each month</span><span class="r">'+money(yourF)+'</span></div>'
+    + '</div>'
+    + negNote
+    + '<div class="ledger"><h3>The kids’ side, for fairness</h3>'
+    + '<div class="row"><span class="l">Their bank loan (payoff plus your cash)</span><span class="r">'+money(kidsBankF)+'/mo</span></div>'
+    + '<div class="row"><span class="l">Their payments to you</span><span class="r">'+money(noteFPmt)+'/mo</span></div>'
+    + '<div class="row"><span class="l">All the taxes, insurance, and water</span><span class="r">'+money(carryMo)+'/mo</span></div>'
+    + '<div class="row"><span class="l">Rent from you</span><span class="r">&minus;'+money(rent)+'/mo</span></div>'
+    + '<div class="row total"><span class="l">Their monthly, all in</span><span class="r">'+money(kidsF)+'</span></div>'
+    + '</div>'
+    + '<div class="explain">How the price works: of the '+money(V)+' value, '+money(mort)+' clears the loan, '+money(pocket)+' is your cash at closing, '+money(credit)+' is covered by the 2024 agreement, and the remaining '+money(noteF)+' becomes the monthly payments to you.</div>';
+
+  // COMPARE
+  $('cmp-out').innerHTML = insHint
+    + '<div class="cols">'
+    + '<div class="col"><h3>Sell half</h3>'
+    + '<div class="row"><span class="l">Cash at closing</span><span class="r">loan cleared</span></div>'
+    + '<div class="row"><span class="l">Your monthly</span><span class="r">'+money(yourH)+'</span></div>'
+    + '<div class="row"><span class="l">You keep</span><span class="r">half, yours to leave</span></div>'
+    + '<div class="row"><span class="l">Rent</span><span class="r">nobody pays any</span></div>'
+    + '<div class="row"><span class="l">Kids’ monthly</span><span class="r">'+money(kidsH)+'</span></div>'
+    + '</div>'
+    + '<div class="col"><h3>Sell the whole place</h3>'
+    + '<div class="row"><span class="l">Cash at closing</span><span class="r">loan cleared + '+money(pocket)+'</span></div>'
+    + '<div class="row"><span class="l">Your monthly</span><span class="r">'+money(yourF)+'</span></div>'
+    + '<div class="row"><span class="l">You keep</span><span class="r">a home for life by lease</span></div>'
+    + '<div class="row"><span class="l">Rent</span><span class="r">you pay '+money(rent)+'/mo</span></div>'
+    + '<div class="row"><span class="l">Kids’ monthly</span><span class="r">'+money(kidsF)+'</span></div>'
+    + '</div>'
+    + '</div>'
+    + '<div class="explain">Neither choice is right or wrong. One trades rent for shared ownership, the other trades ownership for cash and simpler lines. The best one is whichever lets you both sleep easiest.</div>';
+}
+
+$('modes').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  MODE = b.dataset.m;
+  document.querySelectorAll('#modes button').forEach(x=>x.classList.toggle('on', x===b));
+  $('sec-half').classList.toggle('hide', MODE!=='half');
+  $('sec-full').classList.toggle('hide', MODE!=='full');
+  $('sec-cmp').classList.toggle('hide', MODE!=='cmp');
+  calc();
+});
+document.querySelectorAll('input').forEach(el=> el.addEventListener('input', calc));
+calc();
+</script>
+</body>
+</html>
