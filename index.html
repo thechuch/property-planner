@@ -177,6 +177,7 @@
       <div class="explain">Their money pays off the loan, you end up debt free, and the rest comes to you monthly, with interest. Everyone stays put. Co-owners pay no rent; costs split down the middle.</div>
       <div id="half-out"></div>
       <div class="factbox">Your half stays fully yours, to live in and to leave however you wish.</div>
+      <div class="factbox">The monthly payments are what is called seller financing: you are the bank, and the interest goes to you instead of one. The attorney records it against the kids' share of the property, the same protection a bank gets. If the payments ever stopped, that share would come back to you.</div>
     </div>
   </section>
 
@@ -198,6 +199,7 @@
       </div>
 
       <div id="full-out"></div>
+      <div class="factbox">The monthly payments are what is called seller financing: you are the bank, and the interest goes to you instead of one. The attorney records it against the property itself, the same protection a bank gets. If the payments ever stopped, the property would come back to you.</div>
     </div>
   </section>
 
@@ -297,6 +299,7 @@ function calc(){
     + '</div>'
     + '<details class="how"><summary>How the half price splits</summary><div class="inner">'
     + 'Half the value is '+money(half)+'. From that: '+money(mort)+' clears the loan, '+money(credit)+' is already covered by the 2024 agreement, and the remaining '+money(noteH)+' becomes your monthly payments at '+rate+'% for '+term+' years. The kids also carry a bank loan of '+money(mort)+' (about '+money(kidsBankH)+'/mo) that funded the payoff, plus their half of the costs.'
+    + (noteH>0 ? ' Over '+term+' years the payments to you total '+money(noteHPmt*term*12)+', which includes '+money(noteHPmt*term*12-noteH)+' of interest. At 15, 20, or 30 years the check would be about '+money(noteH*amort(rate,15))+', '+money(noteH*amort(rate,20))+', or '+money(noteH*amort(rate,30))+' a month.' : '')
     + '</div></details>';
 
   // FULL: waterfall V = mort + pocket + credit + note
@@ -323,6 +326,7 @@ function calc(){
     + '</div>'
     + '<details class="how"><summary>How the price splits</summary><div class="inner">'
     + 'Of the '+money(V)+' value: '+money(mort)+' clears the loan, '+money(pocket)+' is your cash at closing, '+money(credit)+' is covered by the 2024 agreement, and the remaining '+money(noteF)+' becomes your monthly payments at '+rate+'% for '+term+' years. The kids carry a bank loan of '+money(mort+pocket)+' (about '+money(kidsBankF)+'/mo), all the running costs, and receive your rent.'
+    + (noteF>0 ? ' Over '+term+' years the payments to you total '+money(noteFPmt*term*12)+', which includes '+money(noteFPmt*term*12-noteF)+' of interest. At 15, 20, or 30 years the check would be about '+money(noteF*amort(rate,15))+', '+money(noteF*amort(rate,20))+', or '+money(noteF*amort(rate,30))+' a month.' : '')
     + '</div></details>';
 
   // COMPARE
