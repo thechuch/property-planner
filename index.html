@@ -150,6 +150,18 @@
     </div>
 
     <div class="field">
+      <label>The share you keep</label>
+      <div class="sl"><input type="range" id="keep" min="40" max="60" step="1" value="51"><span class="val" id="keepV"></span></div>
+      <div class="note" id="keepNote"></div>
+    </div>
+
+    <div class="field">
+      <label for="mpay">Your monthly mortgage payment</label>
+      <input type="number" id="mpay" value="916.65" step="10" min="0">
+      <div class="note">What you pay the bank each month. Raise it if you switch to the faster every-two-weeks schedule.</div>
+    </div>
+
+    <div class="field">
       <label>Interest rate on payments to you</label>
       <div class="sl"><input type="range" id="rate" min="3" max="8" step="0.25" value="5.5"><span class="val" id="rateV"></span></div>
       <div class="note">Family loans: IRS minimum is about 4%, banks charge about 7. Most families land between. A CPA confirms the exact minimum.</div>
@@ -164,7 +176,7 @@
 
   <div class="modebar">
     <div class="modes" id="modes">
-      <button data-m="half" class="on">Sell half</button>
+      <button data-m="half" class="on">Sell a share</button>
       <button data-m="full">Sell whole</button>
       <button data-m="cmp">Compare</button>
     </div>
@@ -173,10 +185,10 @@
   <!-- HALF -->
   <section id="sec-half">
     <div class="card">
-      <h2>If you sell half to the kids</h2>
-      <div class="explain">Their money pays off the loan, you end up debt free, and the rest comes to you monthly, with interest. Everyone stays put. Co-owners pay no rent; costs split down the middle.</div>
+      <h2>If you sell part to the kids</h2>
+      <div class="explain">You keep your loan exactly as it is, and the whole share you sell comes to you as monthly payments, with interest. That is what keeps the monthly income up. Everyone stays put, co-owners pay no rent to each other, and the running costs split by ownership.</div>
       <div id="half-out"></div>
-      <div class="factbox">Your half stays fully yours, to live in and to leave however you wish.</div>
+      <div class="factbox">The share you keep stays fully yours, to live in and to leave however you wish.</div>
       <div class="factbox">The monthly payments are what is called seller financing: you are the bank, and the interest goes to you instead of one. The attorney records it against the kids' share of the property, the same protection a bank gets. If the payments ever stopped, that share would come back to you.</div>
     </div>
   </section>
@@ -278,28 +290,42 @@ function calc(){
     return;
   }
 
-  // HALF: payoff comes out of the kids' half price
-  const half = V/2;
-  const noteH = Math.max(0, half - mort - credit);
+  // SHARE: they KEEP the mortgage, so the whole share sold becomes the note
+  const keepPct = num('keep')||51;
+  const soldPct = 100 - keepPct;
+  const mpay = num('mpay')||0;
+  const share = V * soldPct/100;
+  const noteH = Math.max(0, share - credit);
   const noteHPmt = noteH * amort(rate, term);
-  const yourShare = carryMo/2;
-  const yourH = noteHPmt - yourShare;
-  const kidsBankH = mort * amort(KIDS_BANK_RATE, term);
-  const kidsH = noteHPmt + kidsBankH + carryMo/2;
+  const yourShare = carryMo * keepPct/100;
+  const kidsShare = carryMo * soldPct/100;
+  const yourH = noteHPmt - mpay - yourShare;
+  const kidsH = noteHPmt + kidsShare;
+
+  $('keepV').textContent = keepPct + '%';
+  $('keepNote').textContent = 'You keep ' + keepPct + ' percent, the kids buy ' + soldPct
+    + ' percent. Your attorney suggested fifty one, forty nine.';
 
   $('half-out').innerHTML = insHint
     + '<div class="ledger"><h3>What you receive</h3>'
-    + '<div class="row"><span class="l">At closing, the loan is paid off</span><span class="r">debt free</span></div>'
-    + '<div class="row"><span class="l">Monthly payments to you</span><span class="r">+'+money(noteHPmt)+'</span></div>'
-    + '<div class="row"><span class="l">Your half of the running costs</span><span class="r">&minus;'+money(yourShare)+'</span></div>'
+    + '<div class="row"><span class="l">Monthly payments from the kids</span><span class="r">+'+money(noteHPmt)+'</span></div>'
+    + '<div class="row"><span class="l">Your mortgage, which you keep paying</span><span class="r">&minus;'+money(mpay)+'</span></div>'
+    + '<div class="row"><span class="l">Your '+keepPct+' percent of the running costs</span><span class="r">&minus;'+money(yourShare)+'</span></div>'
     + '<div class="row total"><span class="l">Into your pocket monthly</span><span class="r">'+money(yourH)+'</span></div>'
     + '</div>'
     + '<div class="ledger"><h3>The kids&rsquo; side</h3>'
     + '<div class="row"><span class="l">Their monthly, all in</span><span class="r">'+money(kidsH)+'</span></div>'
     + '</div>'
-    + '<details class="how"><summary>How the half price splits</summary><div class="inner">'
-    + 'Half the value is '+money(half)+'. From that: '+money(mort)+' clears the loan, '+money(credit)+' is already covered by the 2024 agreement, and the remaining '+money(noteH)+' becomes your monthly payments at '+rate+'% for '+term+' years. The kids also carry a bank loan of '+money(mort)+' (about '+money(kidsBankH)+'/mo) that funded the payoff, plus their half of the costs.'
-    + (noteH>0 ? ' Over '+term+' years the payments to you total '+money(noteHPmt*term*12)+', which includes '+money(noteHPmt*term*12-noteH)+' of interest. At 15, 20, or 30 years the check would be about '+money(noteH*amort(rate,15))+', '+money(noteH*amort(rate,20))+', or '+money(noteH*amort(rate,30))+' a month.' : '')
+    + '<details class="how"><summary>How the share price splits</summary><div class="inner">'
+    + soldPct + ' percent of ' + money(V) + ' is ' + money(share) + '. Take off the ' + money(credit)
+    + ' already covered by the 2024 agreement, and the remaining ' + money(noteH)
+    + ' becomes your monthly payments at ' + rate + '% for ' + term + ' years. Because your loan stays where it is, the kids need no bank at all, and every dollar of that share comes back to you as income instead of going to pay off the bank.'
+    + (noteH>0 ? ' Over ' + term + ' years the payments to you total ' + money(noteHPmt*term*12) + ', which includes '
+        + money(noteHPmt*term*12-noteH) + ' of interest. At 15, 20, or 30 years the check would be about '
+        + money(noteH*amort(rate,15)) + ', ' + money(noteH*amort(rate,20)) + ', or ' + money(noteH*amort(rate,30)) + ' a month.' : '')
+    + ' If instead the kids paid off your loan as part of the purchase, that ' + money(mort)
+    + ' would come out of this same share price, so your monthly payments would shrink by roughly '
+    + money(Math.min(mort,share) * amort(rate, term)) + ' a month. That is the tradeoff you already weighed.'
     + '</div></details>';
 
   // FULL: waterfall V = mort + pocket + credit + note
@@ -332,11 +358,11 @@ function calc(){
   // COMPARE
   $('cmp-out').innerHTML = insHint
     + '<div class="cols">'
-    + '<div class="col"><h3>Sell half</h3>'
-    + '<div class="row"><span class="l">At closing</span><span class="r">loan cleared</span></div>'
+    + '<div class="col"><h3>Sell a share</h3>'
+    + '<div class="row"><span class="l">At closing</span><span class="r">loan stays put</span></div>'
     + '<div class="row"><span class="l">Your monthly</span><span class="r">'+money(yourH)+'</span></div>'
     + '<div class="row"><span class="l">Rent</span><span class="r">nobody pays</span></div>'
-    + '<div class="row"><span class="l">You keep</span><span class="r">half, yours to leave</span></div>'
+    + '<div class="row"><span class="l">You keep</span><span class="r">'+keepPct+'%, yours to leave</span></div>'
     + '<div class="row"><span class="l">Kids&rsquo; monthly</span><span class="r">'+money(kidsH)+'</span></div>'
     + '</div>'
     + '<div class="col"><h3>Sell whole</h3>'
