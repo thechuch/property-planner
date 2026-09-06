@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Conditions Outline</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Conditions Outline">
+<meta property="og:description" content="The everyday agreement, roughed in together. Read it, react to it, share your thoughts.">
+<meta property="og:image" content="https://thechuch.github.io/property-planner/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:url" content="https://thechuch.github.io/property-planner/conditions/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Conditions Outline">
+<meta name="twitter:description" content="The everyday agreement, roughed in together.">
+<meta name="twitter:image" content="https://thechuch.github.io/property-planner/og.png">
+<style>
+  :root{
+    --paper:#faf6ef; --card:#fffdf8; --ink:#33291f; --soft:#7d6f5d; --line:#e8ddcc;
+    --terra:#a85a38; --terra-soft:#f6e8dc; --walnut:#6b4f36; --cream:#fdf3e3;
+    --good:#3d6b4f; --good-soft:#e9f1ea; --gold:#8a6d24; --gold-soft:#f7f0dc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--paper);color:var(--ink);font:18px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%;}
+  .wrap{max-width:840px;margin:0 auto;padding:26px 18px 80px;}
+  .eyebrow{color:var(--terra);font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;}
+  h1{font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:1.2;margin:6px 0 8px;font-weight:700;}
+  .lede{color:var(--soft);font-size:17px;max-width:640px;}
+  .stamp{display:inline-block;margin-top:12px;background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:14px;color:var(--walnut);font-weight:700;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 20px;margin-top:18px;}
+  .card h2{font-family:Georgia,serif;font-size:21px;margin:0 0 10px;color:var(--walnut);}
+  .how p{font-size:16px;line-height:1.55;margin-bottom:8px;} .how p:last-child{margin-bottom:0;}
+  .how b{color:var(--terra);}
+  .names{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;font-size:16px;margin-top:10px;}
+  .names input{padding:10px 12px;border:2px solid var(--line);border-radius:12px;font-size:16px;background:#fff;color:var(--ink);width:170px;max-width:100%;font-family:inherit;}
+  .names input:focus{outline:none;border-color:var(--terra);}
+  .bar{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .btn{border:2px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;font-size:16px;font-weight:700;color:var(--walnut);cursor:pointer;font-family:inherit;line-height:1.2;}
+  .btn.primary{background:var(--terra);border-color:var(--terra);color:#fff;}
+  .btn.small{padding:9px 12px;font-size:14.5px;}
+  .saveline{font-size:13.5px;color:var(--soft);margin-top:10px;min-height:1.3em;}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:14px;overflow:hidden;}
+  .head{display:flex;align-items:flex-start;gap:12px;padding:16px 18px;cursor:pointer;user-select:none;-webkit-user-select:none;}
+  .num{flex:0 0 auto;width:40px;color:var(--terra);font-weight:800;font-size:15px;padding-top:2px;}
+  .ttl{flex:1 1 auto;}
+  .ttl b{display:block;font-family:Georgia,serif;font-size:19px;color:var(--walnut);line-height:1.3;}
+  .ttl span{display:block;font-size:15px;color:var(--soft);margin-top:3px;line-height:1.45;}
+  .mark{flex:0 0 auto;font-size:13px;font-weight:700;border-radius:20px;padding:5px 10px;margin-top:2px;white-space:nowrap;}
+  .mark.ok{background:var(--good-soft);color:var(--good);} .mark.talk{background:var(--terra-soft);color:var(--terra);} .mark.q{background:var(--gold-soft);color:var(--gold);} .mark.none{display:none;}
+  .chev{flex:0 0 auto;color:var(--soft);font-size:18px;margin-top:2px;transition:transform .15s;}
+  .sec.open .chev{transform:rotate(90deg);}
+  .body{display:none;padding:0 18px 18px;border-top:1px solid var(--line);}
+  .sec.open .body{display:block;}
+  .word{white-space:pre-wrap;font-size:17px;line-height:1.6;padding:14px 0 4px;}
+  .qs{background:var(--cream);border-radius:12px;padding:12px 14px;margin-top:10px;font-size:15.5px;line-height:1.5;}
+  .qs b{display:block;color:var(--walnut);margin-bottom:4px;}
+  .qs div{padding:3px 0 3px 14px;position:relative;} .qs div:before{content:"•";position:absolute;left:0;color:var(--terra);}
+  .react{margin-top:16px;}
+  .react .lab{font-weight:700;font-size:16px;margin-bottom:8px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{border:2px solid var(--line);background:#fff;border-radius:20px;padding:9px 14px;font-size:15px;font-weight:700;color:var(--walnut);cursor:pointer;font-family:inherit;}
+  .chip.on.ok{background:var(--good);border-color:var(--good);color:#fff;} .chip.on.talk{background:var(--terra);border-color:var(--terra);color:#fff;} .chip.on.q{background:var(--gold);border-color:var(--gold);color:#fff;}
+  textarea{width:100%;margin-top:12px;border:2px solid var(--line);border-radius:12px;padding:12px 13px;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#fff;resize:vertical;min-height:70px;overflow:hidden;}
+  textarea:focus{outline:none;border-color:var(--terra);}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .modal{position:fixed;inset:0;background:rgba(51,41,31,.5);display:none;align-items:flex-end;justify-content:center;z-index:9;}
+  .modal.on{display:flex;}
+  .sheet{background:var(--card);width:100%;max-width:840px;max-height:90vh;border-radius:18px 18px 0 0;padding:18px;display:flex;flex-direction:column;gap:10px;}
+  .sheet h3{font-family:Georgia,serif;font-size:19px;color:var(--walnut);}
+  .sheet textarea{flex:1 1 auto;min-height:40vh;font-size:14.5px;margin-top:0;overflow:auto;}
+  .hint{font-size:14px;color:var(--soft);line-height:1.45;}
+  .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:20px;font-size:15px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10;}
+  .toast.on{opacity:1;}
+  .foot{margin-top:26px;color:var(--soft);font-size:14px;text-align:center;line-height:1.55;}
+  .foot a{color:var(--walnut);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">The everyday agreement</div>
+  <h1>Conditions Outline</h1>
+  <p class="lede">The part of the paperwork about living here together: who uses what, how costs are shared, how decisions get made. Rough draft, for all of us to react to.</p>
+  <div class="stamp">Draft as of September 5, 2026</div>
+
+  <div class="card how">
+    <h2>How this works</h2>
+    <p>The attorney is drafting the money documents. <b>This is the rest</b>: the conditions the whole family writes first, in plain language, and then hands over to be put into legal form. It is a starting point, not a finished thing.</p>
+    <p>Open a section, read it, tap how it sits with you, and add what you would change. Then <b>share your thoughts</b> with the family, or <b>copy the whole draft</b> into the Google Doc so it can be worked on there.</p>
+    <p>Nothing here sends itself anywhere. What you type stays on this device until you share it. There are no prices, rates, or payments in here; those come after the appraisal. Nothing is final until everyone signs.</p>
+    <div class="names"><span>Calling the two households</span><input id="pName" aria-label="Name for the parents' household"><span>and</span><input id="kName" aria-label="Name for the kids' household"><span class="hint">First names are fine. This stays on your device.</span></div>
+  </div>
+
+  <div class="bar">
+    <button class="btn primary" id="shareThoughts" type="button">Share my thoughts</button>
+    <button class="btn" id="copyAll" type="button">Copy the whole draft</button>
+  </div>
+  <div class="names" style="margin-top:12px"><span>Your name, for the thoughts you share</span><input id="who" placeholder="optional"></div>
+  <div class="saveline" id="saveline"></div>
+
+  <div id="list"></div>
+
+  <p class="foot">Made by the kids so we can all read the same draft. Your reactions and notes stay on this device until you share them. Ideas, corrections, and better wording are all welcome. The <a href="../">Property Planner</a> is here too.</p>
+</div>
+
+<div class="modal" id="modal"><div class="sheet"><h3 id="mTitle"></h3><textarea id="mText" readonly></textarea><div class="row"><button class="btn primary small" id="mCopy" type="button">Copy</button><button class="btn small" id="mShare" type="button" hidden>Share&hellip;</button><a class="btn small" id="mMail" hidden>Email it</a><button class="btn small" id="mClose" type="button">Close</button></div><div class="hint" id="mHint"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+var ROMAN=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+var STAMP='September 5, 2026';
+var REACT=[['ok','Works for me'],['talk','Let’s talk about it'],['q','I have a question']];
+var DATA=[
+{id:'shares',t:'The property and the shares',a:'Who owns what share, and how it is written down.',
+w:'A. The property is the whole parcel with everything on it: the main house, the shop, the well, the septic, the pond, the pasture, and the stables.\nB. Ownership is as tenants in common: 51 percent held by the family trust, 49 percent held by {K}. How the names appear on the deed is settled with the attorneys.\nC. A percentage is a share of the whole. There are no property lines inside the parcel and nobody owns a particular building outright. Who uses what is covered in Section II.\nD. The deed that transfers the 49 percent is recorded with the county, so the ownership is on the public record the same way the trust’s ownership is today.\nE. The percentages only change by a written agreement signed by everyone.',
+q:['How do the names appear on the deed? The attorneys to advise.','Confirm the deed will be recorded, and roughly when.']},
+{id:'live',t:'Who lives where',a:'Each household’s home, and what needs everyone’s say.',
+w:'A. {P} have the main house for their exclusive use, for as long as they want it, with no rent in either direction. Co-owners are not tenants.\nB. {K}, with their son, have the tiny house site for their exclusive use, including the parking and the yard immediately around it. The tiny house itself belongs to them and is not part of the property.\nC. Each household keeps up its own home and yard.\nD. Nobody rents out a dwelling, moves someone in long term, or changes who lives where without both households agreeing in writing. Ordinary guests and family visits need no permission.\nE. If a household ever leaves its home, the two households talk first about what happens to that space before anything is decided.',
+q:['Should a simple sketch of the tiny house site be attached, so everyone agrees where it is?']},
+{id:'shared',t:'Shared spaces and systems',a:'The shop, the well, the septic, the water, and the land everyone uses.',
+w:'A. The shop is shared, exactly as it is today. Both households use it for projects without asking. Tools and equipment belong to whoever owns them now. If either household ever wants a dedicated corner, it gets written in here.\nB. The electrical feed from the shop panel to the tiny house stays in place and is part of the shared system.\nC. The well and the water system serve both homes. The water is tested on a regular schedule (Section V), and either household can call the pump contractor if something fails.\nD. The septic system serves the main house. Its replacement and relocation is the first shared project (Section V).\nE. The pond and the irrigation water are shared. One household manages the irrigation district account and pays it from the shared account (Section IV).\nF. The driveway, gate, fencing, pasture, and stables are shared. Nobody blocks access or changes the gate code without telling the other household.\nG. Trees: removing a healthy tree or planting a row of them is a shared decision. Dead, dangerous, or storm-damaged trees can be handled by either household right away.\nH. Animals: each household is responsible for its own animals and any damage they cause.',
+q:['Who manages the irrigation account today, and does that stay the same?','Is there anything in the shop either household wants set aside as theirs alone?']},
+{id:'costs',t:'Ongoing costs',a:'Taxes, insurance, irrigation, upkeep: who pays what.',
+w:'A. Property taxes, property insurance, and the irrigation assessment are shared by ownership: 51 percent {P}, 49 percent {K}.\nB. A shared household account is opened for these. Each household deposits its share monthly, the bills are paid from it, and both households can see the statements.\nC. Utilities: each home pays its own where the meters are separate. Anything shared on one meter is split by ownership unless we agree on a fairer split for that item.\nD. Routine upkeep of each home is that household’s own cost. Routine upkeep of the shared systems (well, septic, pond, driveway, gate, fencing, shop building) is split by ownership.\nE. Once a year we look at the actual numbers and adjust the monthly deposit.',
+q:['Which bank for the shared account, and who is on it?','What is the current yearly total for taxes, insurance, and irrigation, so we can set the monthly deposit?']},
+{id:'repairs',t:'Repairs, replacements, and projects',a:'Emergencies, planned work, the septic, the well, and permits.',
+w:'A. Emergencies: either household can authorize an emergency repair to a shared system up to [amount] and tells the other within a day.\nB. Planned repairs to shared systems above [amount] need both households to agree before work starts. The cost is split by ownership.\nC. The septic replacement is the first big shared project. Before the sale closes, we agree on a rough timeline and how it is funded. The cost is split by ownership.\nD. The well is tested when the sale closes and then on a schedule we set, for example every three years and any time the water changes.\nE. Improvements a household makes to its own home are at its own cost, with no reimbursement unless agreed in writing beforehand.\nF. Permitting the existing work on the property is a shared project after the sale. The cost and any added value are shared by ownership.\nG. Receipts and reports for shared work go in the shared folder.',
+q:['The dollar amounts for A and B. ($1,000 and $3,000? Something else?)','Septic: when, and how do we fund it? Savings, a shared reserve, or a mix?']},
+{id:'decide',t:'How decisions get made',a:'What each household decides alone, what needs both, and what the 51 percent is for.',
+w:'A. Each household runs its own home without asking.\nB. For the shared systems, small operating decisions go to whoever is handling that system, with a heads-up to the other household.\nC. These always need both households to agree in writing, no matter the percentages: selling the property or any share of it; borrowing against the property or putting any lien on it; changing who lives where or renting anything out; changing the use of the land; any project over [amount]; and changing this agreement.\nD. If the two households genuinely cannot agree on a shared-system operating decision after talking it through, the 51 percent held by {P} decides. That is what the majority share is for, and it does not reach the decisions in C.\nE. We sit down together once a year, around [month], go through this agreement and the shared account, and write down anything we change.',
+q:['The dollar amount for a “project” in C.','Which month for the yearly sit-down?']},
+{id:'note',t:'The note and the existing mortgage',a:'Two loans, kept separate, and what happens if a payment is late.',
+w:'A. {K} pay {P} monthly under the promissory note. {P} keep paying the existing mortgage. Neither payment depends on the other.\nB. Payments on the note can be made early, in part or in full, without penalty.\nC. If a note payment is missed: written notice, then thirty days to catch up, before anything further under the trust deed. Talking comes first.\nD. Each January, {P} give a simple statement of the year’s principal and interest for everyone’s taxes.\nE. If the bank ever raises a question about the transfer, both households cooperate and follow the attorneys’ plan.',
+q:['Ask the attorneys how the note payment date should line up with the mortgage payment date.']},
+{id:'insure',t:'Insurance and liability',a:'One policy, whose things are whose, and who answers for what.',
+w:'A. One property policy covers the buildings and liability for the whole parcel and names all the owners. Its cost is shared by ownership.\nB. Each household insures its own belongings. {K} insure the tiny house themselves.\nC. Each household is responsible for its own guests, workers, and animals.\nD. If there is an insurance payout for damage to a shared system or building, it is used to repair or replace it unless both households agree otherwise.',
+q:['Who is the current insurer, and does the policy already cover the shop and the tiny house site?']},
+{id:'sell',t:'Selling, leaving, or buying more',a:'First offer to each other, and no forced sales.',
+w:'A. If either household ever wants to sell its share, it offers it to the other household first, at a price set by an independent appraiser both households agree on.\nB. The other household has [90 days] to say yes and a reasonable time to arrange payment, including the option of owner financing on terms like the original note.\nC. Neither household will ask a court to force a sale or divide the property. Disagreements go to Section XI first.\nD. Selling the whole property needs both households to agree.',
+q:['How long should the first-offer window be?']},
+{id:'death',t:'When someone passes, divorces, or cannot manage their affairs',a:'So nobody has to figure this out at the worst possible time.',
+w:'A. If one of {P} passes, the 51 percent stays with the trust and this agreement continues unchanged with the survivor.\nB. When the 51 percent passes on under the trust, this agreement binds whoever receives it. {K} keep their home, and they have the first right to buy the inherited share at appraised value, with owner financing available on terms like the original note.\nC. If one of {K} passes, the 49 percent stays with the other and then their son, and this agreement continues.\nD. If either couple divorces, the departing spouse’s interest is subject to the first-offer rule in Section IX, and the property is not put up for sale because of it.\nE. If anyone cannot manage their own affairs, the person legally acting for them steps into this agreement.',
+q:['The attorney raised divorce and the pond as things to spell out. What else should be covered here?']},
+{id:'disputes',t:'Disagreements and changes',a:'Talk, then a mediator, and changes only in writing.',
+w:'A. Talk first, in person, with both households present.\nB. If that fails, a mediator, before any lawyer gets involved. The county has low-cost mediation.\nC. Court is the last resort, and never to force a sale (Section IX).\nD. Changes to this agreement are only valid in writing, signed by everyone.\nE. Each household keeps a signed copy, and the shared folder always holds the current version.',
+q:['Does everyone agree to try mediation before anything else?']},
+{id:'house',t:'Housekeeping',a:'Notices, when this starts, and keeping the plain version attached.',
+w:'A. Routine notices can be a text or an email. Formal notices under Sections VII and IX are in writing, delivered by hand or by mail.\nB. This agreement starts when the sale closes and lasts until the property is sold or the agreement is replaced by a new one everyone signs.\nC. The attorneys put this into proper legal form. The plain-language version stays attached, so everyone can always read what was meant.',
+q:['Anything that does not fit above? Add a section for it.']}
+];
+function $(id){return document.getElementById(id);}
+function get(k,def){try{var v=localStorage.getItem('co-'+k);return v===null?def:v;}catch(e){return def;}}
+function set(k,v){try{localStorage.setItem('co-'+k,v);}catch(e){} saved();}
+var saveT;function saved(){var s=$('saveline');s.textContent='Saved on this device';clearTimeout(saveT);saveT=setTimeout(function(){s.textContent='';},1800);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function names(){return {p:(get('p','')||'the parents').trim(),k:(get('k','')||'the kids').trim()};}
+function fill(s){var n=names();s=s.split('{P}').join(n.p).split('{K}').join(n.k);return s.replace(/(^|[.!?]\s+)([a-z])/gm,function(m,a,b){return a+b.toUpperCase();});}
+var open={};
+function fit(t){t.style.height='auto';t.style.height=(t.scrollHeight+2)+'px';}
+function markHtml(r){if(!r)return '<span class="mark none"></span>';var lab=REACT.filter(function(x){return x[0]===r;})[0];return '<span class="mark '+r+'">'+(lab?lab[1]:'')+'</span>';}
+function render(){
+  var html='';
+  DATA.forEach(function(d,i){
+    var r=get(d.id+'-r','');var th=get(d.id+'-t','');
+    html+='<div class="sec'+(open[d.id]?' open':'')+'" data-id="'+d.id+'">'
+      +'<div class="head" data-act="toggle"><span class="num">'+ROMAN[i]+'</span><span class="ttl"><b>'+esc(d.t)+'</b><span>'+esc(d.a)+'</span></span>'+markHtml(r)+'<span class="chev">&#8250;</span></div>'
+      +'<div class="body"><div class="word">'+esc(fill(d.w))+'</div>'
+      +'<div class="qs"><b>Still to decide together</b>'+d.q.map(function(x){return '<div>'+esc(x)+'</div>';}).join('')+'</div>'
+      +'<div class="react"><div class="lab">How does this section sit with you?</div><div class="chips">'+REACT.map(function(x){return '<button class="chip '+x[0]+(r===x[0]?' on':'')+'" data-act="react" data-r="'+x[0]+'" type="button">'+x[1]+'</button>';}).join('')+'</div>'
+      +'<textarea data-act="thoughts" placeholder="What I would change or add, or a question for the family">'+esc(th)+'</textarea></div>'
+      +'<div class="row"><button class="btn small" data-act="copysec" type="button">Copy this section</button></div>'
+      +'</div></div>';
+  });
+  $('list').innerHTML=html;
+  var tas=document.querySelectorAll('.sec.open textarea');for(var i=0;i<tas.length;i++)fit(tas[i]);
+}
+function secText(d,i){var s=ROMAN[i]+'. '+d.t.toUpperCase()+'\n'+fill(d.w)+'\n';if(d.q.length){s+='\nStill to decide together:\n'+d.q.map(function(x){return '- '+x;}).join('\n')+'\n';}return s;}
+function fullText(){return 'CONDITIONS OF THE SALE, working draft as of '+STAMP+'\nThe everyday agreement, for the family to react to. Nothing here is final until everyone signs. Amounts in [brackets] are placeholders to fill in together. No prices, rates, or payments belong in here.\n\n'+DATA.map(secText).join('\n');}
+function thoughtsText(){
+  var who=(get('who','')||'').trim();var d=new Date();var when=d.toLocaleDateString('en-US',{month:'long',day:'numeric'});
+  var lines=[];
+  DATA.forEach(function(x,i){var r=get(x.id+'-r','');var th=(get(x.id+'-t','')||'').trim();if(!r&&!th)return;var lab=REACT.filter(function(y){return y[0]===r;})[0];var s=ROMAN[i]+'. '+x.t+(lab?': '+lab[1]:'');if(th)s+='\n   '+th.split('\n').join('\n   ');lines.push(s);});
+  if(!lines.length)return null;
+  return (who?who+'’s':'My')+' thoughts on the conditions outline, '+when+'\n\n'+lines.join('\n\n')+'\n\nFrom the family outline page, draft as of '+STAMP+'.';
+}
+var toastT;function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on');},1700);}
+function modal(title,text,hint,mail){$('mTitle').textContent=title;$('mText').value=text;$('mHint').textContent=hint||'';$('mShare').hidden=!navigator.share;var m=$('mMail');if(mail){m.hidden=false;m.href='mailto:'+atob('Y2h1Y2guc2VycmFub0BnbWFpbC5jb20=')+'?subject='+encodeURIComponent('Thoughts on the conditions outline')+'&body='+encodeURIComponent(text);}else{m.hidden=true;}$('modal').classList.add('on');}
+function copyText(text){
+  if(navigator.clipboard&&navigator.clipboard.writeText){return navigator.clipboard.writeText(text).then(function(){return true;},function(){return fallbackCopy();});}
+  return Promise.resolve(fallbackCopy());
+}
+function fallbackCopy(){try{var ta=$('mText');ta.readOnly=false;ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);var ok=document.execCommand('copy');ta.readOnly=true;return ok;}catch(e){return false;}}
+$('copyAll').onclick=function(){modal('The whole draft',fullText(),'Copy it into the Google Doc, or share it. It uses the household names you set above.',false);};
+$('shareThoughts').onclick=function(){var t=thoughtsText();if(!t){toast('Tap a reaction or add a thought first');return;}modal('My thoughts',t,'Share this to the family group text, email it, or copy it. Only the sections you reacted to are included.',true);};
+$('mCopy').onclick=function(){copyText($('mText').value).then(function(ok){if(ok)toast('Copied');else $('mHint').textContent='Copy did not work here. Select the text and copy it by hand.';});};
+$('mShare').onclick=function(){try{navigator.share({title:$('mTitle').textContent,text:$('mText').value});}catch(e){}};
+$('mClose').onclick=function(){$('modal').classList.remove('on');};
+$('modal').addEventListener('click',function(e){if(e.target.id==='modal')$('modal').classList.remove('on');});
+$('list').addEventListener('click',function(e){
+  var el=e.target;var actEl=null;while(el&&el!==this){if(el.getAttribute&&el.getAttribute('data-act')){actEl=el;break;}el=el.parentNode;}
+  if(!actEl)return;var sec=actEl;while(sec&&!(sec.classList&&sec.classList.contains('sec')))sec=sec.parentNode;if(!sec)return;
+  var id=sec.getAttribute('data-id');var d=null,idx=-1;DATA.forEach(function(x,i){if(x.id===id){d=x;idx=i;}});
+  var act=actEl.getAttribute('data-act');
+  if(act==='toggle'){open[id]=!open[id];sec.classList.toggle('open',!!open[id]);var tas=sec.querySelectorAll('textarea');for(var i=0;i<tas.length;i++)fit(tas[i]);return;}
+  if(act==='react'){var r=actEl.getAttribute('data-r');var cur=get(id+'-r','');var nxt=cur===r?'':r;set(id+'-r',nxt);var chips=sec.querySelectorAll('.chip');for(var j=0;j<chips.length;j++)chips[j].classList.toggle('on',chips[j].getAttribute('data-r')===nxt);var old=sec.querySelector('.mark');var tmp=document.createElement('div');tmp.innerHTML=markHtml(nxt);old.parentNode.replaceChild(tmp.firstChild,old);return;}
+  if(act==='copysec'){modal(ROMAN[idx]+'. '+d.t,secText(d,idx),'This section, wording and the open questions.',false);return;}
+});
+$('list').addEventListener('input',function(e){var t=e.target;if(t.tagName!=='TEXTAREA')return;var sec=t;while(sec&&!(sec.classList&&sec.classList.contains('sec')))sec=sec.parentNode;set(sec.getAttribute('data-id')+'-t',t.value);fit(t);});
+$('pName').value=get('p','');$('kName').value=get('k','');$('who').value=get('who','');
+$('pName').placeholder='the parents';$('kName').placeholder='the kids';
+$('pName').addEventListener('input',function(){set('p',this.value);render();});
+$('kName').addEventListener('input',function(){set('k',this.value);render();});
+$('who').addEventListener('input',function(){set('who',this.value);});
+render();
+</script>
+</body>
+</html>
